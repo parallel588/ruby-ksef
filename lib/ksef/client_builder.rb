@@ -214,16 +214,31 @@ module KSEF
       public_keys = handler.call
 
       # Find symmetric key encryption certificate
-      cert_data = public_keys.find { |k| k["usage"] == "SymmetricKeyEncryption" }
+      # Note: usage field is an array, not a string
+      cert_data = public_keys.find do |k|
+        usage = k["usage"]
+        if usage.is_a?(Array)
+          usage.include?("SymmetricKeyEncryption")
+        else
+          usage == "SymmetricKeyEncryption"
+        end
+      end
       raise Error, "SymmetricKeyEncryption certificate not found" unless cert_data
 
       # Convert DER to PEM and encrypt key
       cert_der = Base64.decode64(cert_data["certificate"])
       public_key = OpenSSL::X509::Certificate.new(cert_der).public_key
 
-      # Encrypt encryption key with KSEF public key
+      # Encrypt encryption key with KSEF public key using RSA-OAEP with SHA-256
       key_to_encrypt = @config.encryption_key.key + @config.encryption_key.iv
-      encrypted = public_key.public_encrypt(key_to_encrypt, OpenSSL::PKey::RSA::PKCS1_OAEP_PADDING)
+      encrypted = public_key.encrypt(
+        key_to_encrypt,
+        {
+          rsa_padding_mode: "oaep",
+          rsa_oaep_md:      "sha256",
+          rsa_mgf1_md:      "sha256"
+        }
+      )
 
       encrypted_key = ValueObjects::EncryptedKey.new(Base64.strict_encode64(encrypted))
       @config = @config.with_encrypted_key(encrypted_key)

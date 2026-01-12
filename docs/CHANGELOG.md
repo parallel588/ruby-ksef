@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file.
 
+## [Unreleased] - 2026-01-12
+
+### Fixed
+- **KSEF Token Authentication** - Fixed three critical bugs:
+  - Fixed `usage` field handling - API returns array but code expected string
+  - Fixed certificate type - now correctly searches for `KsefTokenEncryption` instead of `SymmetricKeyEncryption`
+  - Fixed RSA-OAEP encryption to use SHA-256 instead of SHA-1 (default), as required by KSeF API
+  - Fixed request body format - added missing `challenge` field and corrected `contextIdentifier` structure
+  - Fixed timestamp handling - now uses `timestampMs` with fallback to `timestamp`
+- **Encryption Key Handling** - Fixed RSA-OAEP encryption in `ClientBuilder`:
+  - Fixed `usage` field handling for array support
+  - Updated to use SHA-256 for RSA-OAEP encryption
+
 ## [1.1.0] - 2025-10-17
 
 ### Added - 100% API Coverage 🎉
