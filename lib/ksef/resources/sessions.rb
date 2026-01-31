@@ -69,6 +69,12 @@ module KSEF
         Requests::Sessions::CloseOnlineHandler.new(@http_client).call(session_reference_number)
       end
 
+      # open online session
+      # @return [Hash] Close response
+      def open_online()
+        Requests::Sessions::OpenOnlineHandler.new(@http_client).call()
+      end
+      
       # Close batch session
       # @param session_reference_number [String] Session reference number
       # @return [Hash] Close response
