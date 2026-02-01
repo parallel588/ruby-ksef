@@ -13,6 +13,10 @@ module KSEF
       # @return [Hash] Session reference number and validity
       def open_online(params)
         Requests::Sessions::OpenOnlineHandler.new(@http_client).call(params)
+
+      # List sessions
+      def list(params)
+        Requests::Sessions::ListHandler.new(@http_client).call(params)
       end
 
       # Send online invoice
@@ -78,8 +82,8 @@ module KSEF
 
       # open online session
       # @return [Hash] Close response
-      def open_online()
-        Requests::Sessions::OpenOnlineHandler.new(@http_client).call()
+      def open_online(invoice_schema, encryption_key)
+        Requests::Sessions::OpenOnlineHandler.new(@http_client).call(invoice_schema, encryption_key)
       end
       
       # Close batch session

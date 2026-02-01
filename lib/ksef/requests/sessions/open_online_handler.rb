@@ -5,6 +5,16 @@ module KSEF
     module Sessions
       # Handler for opening online session
       class OpenOnlineHandler
+        # @doc """
+        # Obsługiwane schematy:
+
+        # SystemCode	SchemaVersion	Value
+        # FA (2)	    1-0E	        FA
+        # FA (3)	    1-0E	        FA
+        # PEF (3)	    2-1	            PEF
+        # PEF_KOR (3)	2-1	            PEF
+        # """
+        
         def initialize(http_client)
           @http_client = http_client
         end
@@ -47,3 +57,4 @@ module KSEF
     end
   end
 end
+
