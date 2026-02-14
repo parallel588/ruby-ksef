@@ -5,6 +5,7 @@ module KSEF
     module ValueObjects
       # Kod formularza faktury
       class FormCode
+
         # POZOR: Hodnoty MUSÍ odpovídat fixed hodnotám v XSD!
         FA2 = "FA (2)"      # S MEZEROU! (podle XSD)
         FA3 = "FA (3)"      # S MEZEROU! (podle XSD)
