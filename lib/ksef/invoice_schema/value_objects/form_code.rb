@@ -5,8 +5,8 @@ module KSEF
     module ValueObjects
       # Kod formularza faktury
       class FormCode
-        FA2 = "FA(2)"
-        FA3 = "FA(3)"
+        FA2 = "FA (2)"
+        FA3 = "FA (3)"
 
         attr_reader :value
 
@@ -33,7 +33,7 @@ module KSEF
         end
 
         def target_namespace
-          "http://crd.gov.pl/wzor/2023/06/29/12648/"
+          "http://crd.gov.pl/wzor/2025/06/25/13775/"
         end
 
         private
