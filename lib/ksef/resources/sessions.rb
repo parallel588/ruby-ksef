@@ -13,7 +13,8 @@ module KSEF
       # @return [Hash] Session reference number and validity
       def open_online(params)
         Requests::Sessions::OpenOnlineHandler.new(@http_client).call(params)
-
+      end
+      
       # List sessions
       def list(params)
         Requests::Sessions::ListHandler.new(@http_client).call(params)
